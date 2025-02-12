@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 
+import dotenv from "dotenv";
+
 const app = express();
 const port = 3000;
 
@@ -18,6 +20,10 @@ const users: User[] = [
 
 app.get('/', lazo, (req: Request, res: Response) => {
     console.log(req.params);
+    dotenv.config()
+
+    console.log(process.env.DB_NAME);
+
     res.send("Hello, world!");
 });
 
