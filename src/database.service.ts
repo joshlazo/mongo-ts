@@ -2,14 +2,12 @@ import * as mongoDB from "mongodb";
 
 import dotenv from "dotenv";
 
-
-
 export const collections: { games?: mongoDB.Collection } = {};
 
 export async function connectToDatabase() {
     dotenv.config();
 
-    const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_NAME as string);
+    const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONN_STRING as string);
 
     await client.connect();
 

@@ -2,10 +2,13 @@ import express, { Request, Response } from 'express';
 
 import dotenv from "dotenv";
 
-const app = express();
-const port = 3000;
+import { connectToDatabase } from './database.service';
+import { gamesRouter } from './routes/games.router';
 
-app.use(express.json());
+const app = express();
+const port = 8080;
+
+// app.use(express.json());
 
 interface User {
     id: number;
@@ -18,19 +21,32 @@ const users: User[] = [
     { id: 2, name: "Alice", email: "bob@gmail" },
 ];
 
-app.get('/', lazo, (req: Request, res: Response) => {
-    console.log(req.params);
-    dotenv.config()
+connectToDatabase()
+    .then(() => {
+        app.use("/games", gamesRouter);
 
-    console.log(process.env.DB_NAME);
+        app.listen(port, () => {
+            console.log(`Server started at http://localhost:${port}`);
+        });
+    })
+    .catch((error: Error) => {
+        console.error("Database connection failed", error);
+        process.exit();
+    });
 
-    res.send("Hello, world!");
-});
+// app.get('/', lazo, (req: Request, res: Response) => {
+//     console.log(req.params);
+//     dotenv.config()
+
+//     console.log(process.env.DB_NAME);
+
+//     res.send("Hello, world!");
+// });
 
 function lazo(req: any, res: any, next: any) {
     console.log('joshua lazo');
     // let joshua: Response;
-    // // joshua.set("hello world");
+    // // joshua.set("hello world"); qwe
 
     // joshua.set('Foo', ['bar', 'baz']);
 
@@ -40,10 +56,10 @@ function lazo(req: any, res: any, next: any) {
     next();
 }
 
-app.get('/users', (req: Request, res: Response) => {
-    res.json(users);
-});
+// app.get('/users', (req: Request, res: Response) => {
+//     res.json(users);
+// });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
