@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 
-import dotenv from "dotenv";
+
 
 import { connectToDatabase } from './database.service';
 import { gamesRouter } from './routes/games.router';
@@ -46,7 +46,7 @@ connectToDatabase()
 function lazo(req: any, res: any, next: any) {
     console.log('joshua lazo');
     // let joshua: Response;
-    // // joshua.set("hello world"); qwe
+    // // joshua.set("hello world");
 
     // joshua.set('Foo', ['bar', 'baz']);
 
