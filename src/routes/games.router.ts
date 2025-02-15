@@ -9,7 +9,7 @@ gamesRouter.use(express.json());
 
 gamesRouter.get("/", async (_req: Request, res: Response) => {
     try {
-        const games = (await collections.games?.find({}).toArray());
+        const games = (await collections.games?.find<Game>({}).toArray());
 
         res.status(200).send(games);
     } catch (error: any) {
@@ -44,5 +44,28 @@ gamesRouter.post("/", async (req: Request, res: Response) => {
     } catch (error: any) {
         console.error(error);
         res.status(400).send(error.message);
+    }
+});
+
+gamesRouter.put("/:id", async (req: Request, res: Response) => {
+    const id = req?.params?.id;
+
+    try {
+        const updatedGame: Game = req.body as Game;
+        const query = { _id: new ObjectId(id) };
+
+        const result = await collections.games?.updateOne(query, { $set: updatedGame });
+
+        result
+            ? res.status(200).send(`Successfully updated game with id ${id}`)
+            : res.status(304).send(`Game with id: ${id} not updated`);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.log('wassap');
+            res.status(400).send(error.message);
+        }
+
+        // console.error(error.message);
+        // res.status(400).send(error.message);
     }
 });
