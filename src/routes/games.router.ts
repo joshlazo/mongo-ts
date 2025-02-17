@@ -3,6 +3,8 @@ import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
 import Game from "../models/game";
 
+import { Joshua } from "../models/joshua.model";
+
 export const gamesRouter = express.Router();
 
 gamesRouter.use(express.json());
@@ -63,7 +65,7 @@ gamesRouter.put("/:id", async (req: Request, res: Response) => {
             : res.status(304).send(`Game with id: ${id} not updated`);
     } catch (error: unknown) {
         if (error instanceof Error) {
-            console.log('wassap');
+            console.log('wassap 123');
             res.status(400).send(error.message);
         }
 
