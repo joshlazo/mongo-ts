@@ -14,6 +14,8 @@ interface User {
     email: string;
 }
 
+console.log("wassap123");
+
 const users: User[] = [
     { id: 1, name: "John", email: "alice@gmail.com" },
     { id: 2, name: "Alice", email: "bob@gmail" },
@@ -41,18 +43,18 @@ connectToDatabase()
 //     res.send("Hello, world!");
 // });
 
-function lazo(req: any, res: any, next: any) {
-    console.log('joshua lazo');
-    // let joshua: Response;
-    // // joshua.set("hello world");
+// function lazo(req: any, res: any, next: any) {
+//     console.log('joshua lazo');
+//     // let joshua: Response;
+//     // // joshua.set("hello world");
 
-    // joshua.set('Foo', ['bar', 'baz']);
+//     // joshua.set('Foo', ['bar', 'baz']);
 
-    // return joshua.send('qweqwe');
+//     // return joshua.send('qweqwe');
 
-    // return res;
-    next();
-}
+//     // return res;
+//     next();
+// }
 
 // app.get('/users', (req: Request, res: Response) => {
 //     res.json(users);

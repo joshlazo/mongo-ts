@@ -8,6 +8,8 @@ export const gamesRouter = express.Router();
 gamesRouter.use(express.json());
 
 gamesRouter.get("/", async (_req: Request, res: Response) => {
+    console.log("this is fired");
+
     try {
         const games = (await collections.games?.find<Game>({}).toArray());
 
@@ -23,7 +25,7 @@ gamesRouter.get("/:id", async (req: Request, res: Response) => {
     try {
 
         const query = { _id: new ObjectId(id) };
-        const game = (await collections.games?.findOne(query));
+        const game = (await collections.games?.findOne<Game>(query));
 
         if (game) {
             res.status(200).send(game);
@@ -67,5 +69,25 @@ gamesRouter.put("/:id", async (req: Request, res: Response) => {
 
         // console.error(error.message);
         // res.status(400).send(error.message);
+    }
+});
+
+gamesRouter.delete("/:id", async (req: Request, res: Response) => {
+    const id = req?.params?.id;
+
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.games?.deleteOne(query);
+
+        if (result && result.deletedCount) {
+            res.status(202).send(`Successfully removed game with id ${id}`);
+        } else if (!result) {
+            res.status(400).send(`Failed to remove game with id ${id}`);
+        } else if (!result.deletedCount) {
+            res.status(404).send(`Game with id ${id} does not exist`);
+        }
+    } catch (error: any) {
+        console.error(error.message);
+        res.status(400).send(error.message);
     }
 });
