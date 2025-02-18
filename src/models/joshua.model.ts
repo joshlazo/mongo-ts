@@ -1,5 +1,7 @@
 export interface Joshua {
-    "bomb" : string;
-    "boing" : string;
-    "badog" : string;
+    "bomb": string;
+    "boing": string;
+    "badog": string;
+
+    "featureSpecificToDockerBranch": string;
 }
