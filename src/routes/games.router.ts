@@ -62,7 +62,7 @@ gamesRouter.put("/:id", async (req: Request, res: Response) => {
 
         result
             ? res.status(200).send(`Successfully updated game with id ${id}`)
-            : res.status(304).send(`Game with id: ${id} not updated`);
+            : res.status(304).send(`Game with id: ${id} not updated!`);
     } catch (error: unknown) {
         if (error instanceof Error) {
             console.log('wassap 123');
