@@ -44,7 +44,7 @@ gamesRouter.post("/", async (req: Request, res: Response) => {
 
         result
             ? res.status(201).send(`Successfully created a new game with id ${result.insertedId}`)
-            : res.status(500).send("Failed to create a new game.");
+            : res.status(500).send("Failed to create a new game. 123");
     } catch (error: any) {
         console.error(error);
         res.status(400).send(error.message);
